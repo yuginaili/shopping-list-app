@@ -1,0 +1,45 @@
+<div class="container modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Your Basket</h4>
+        </div>
+        <div class="row" ng-show="vm.countBasket() <= 0">
+            <div class="col-xs-12">
+                <h4 class="no-items">There are no items in your basket!</h4>
+            </div>
+        </div>
+        <div class="row" ng-show="vm.countBasket() > 0">
+            <div class="basket-header col-xs-12">
+                <div class="col-xs-3 col-sm-4">Item</div>
+                <div class="col-xs-3 col-sm-3">Quantity</div>
+                <div class="col-xs-3 col-sm-2"></div>
+                <div class="col-xs-3 col-sm-3"></div>
+            </div>
+        </div>
+        <div class="row" ng-show="vm.countBasket() > 0">
+            <div class="modal-body col-xs-12">
+                <ul class="shopping-list">
+                    <li ng-repeat="item in vm.shoppingList" ng-show="item.inBasket">
+                        <div class="col-xs-3 col-sm-4">
+                            {{item.name | uppercase}}
+                        </div>
+                        <div class="col-xs-3 col-sm-3">
+                            <input type="number" min="1" class="form-control qty" ng-model="item.quantity" ng-change="vm.updateQuantity($index)">
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <button class="btn btn-sm btn-danger" type="button" ng-click="vm.removeFromBasket($index)">Remove</button>
+                        </div>
+                        <div class="col-xs-3 col-sm-3">
+                            <button class="btn btn-sm btn-success" type="button" ng-click="vm.purchase($index)">Purchase</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-disabled="vm.countBasket() <= 0" ng-click="vm.emptyBasket()">Empty Basket</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
